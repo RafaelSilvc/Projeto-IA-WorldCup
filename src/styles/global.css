@@ -1,0 +1,523 @@
+/* ==========================================================
+   Sistema Copa do Mundo 2026 — Tema visual
+   Paleta inspirada nas cores clássicas da Copa: verde campo,
+   amarelo ouro (taça), azul celeste e grafite escuro.
+   ========================================================== */
+
+:root {
+  --verde-campo: #0a8a3c;
+  --verde-escuro2: #065a2a;
+  --amarelo-ouro: #ffcc00;
+  --amarelo-claro: #ffe066;
+  --azul-celeste: #1565c0;
+  --azul-escuro: #0d3b66;
+  --grafite: #161a1d;
+  --cinza-claro: #f4f6f5;
+  --cinza-medio: #d9dedb;
+  --branco: #ffffff;
+  --vermelho-erro: #d64550;
+  --verde-sucesso: #2e7d32;
+
+  --sombra: 0 4px 14px rgba(0, 0, 0, 0.12);
+  --sombra-forte: 0 10px 30px rgba(0, 0, 0, 0.18);
+  --raio: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: var(--cinza-claro);
+  color: var(--grafite);
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ---------------- Layout principal ---------------- */
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.conteudo-principal {
+  flex: 1;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+}
+
+/* ---------------- Navbar ---------------- */
+
+.navbar {
+  background: linear-gradient(135deg, var(--verde-escuro2) 0%, var(--verde-campo) 55%, var(--azul-escuro) 100%);
+  box-shadow: var(--sombra);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.navbar-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.navbar-marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0;
+  color: var(--branco);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.3px;
+}
+
+.navbar-marca .bola {
+  font-size: 1.6rem;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.35));
+}
+
+.navbar-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding-bottom: 10px;
+}
+
+.navbar-links a {
+  color: rgba(255,255,255,0.88);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  white-space: nowrap;
+}
+
+.navbar-links a:hover {
+  background: rgba(255,255,255,0.14);
+  color: var(--amarelo-ouro);
+}
+
+.navbar-links a.ativo {
+  background: var(--amarelo-ouro);
+  color: var(--grafite);
+}
+
+/* ---------------- Hero / Dashboard ---------------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--raio);
+  background: linear-gradient(120deg, var(--azul-escuro) 0%, var(--azul-celeste) 45%, var(--verde-campo) 100%);
+  color: var(--branco);
+  padding: 46px 36px;
+  margin-bottom: 32px;
+  box-shadow: var(--sombra-forte);
+}
+
+.hero::after {
+  content: "⚽";
+  position: absolute;
+  right: -10px;
+  bottom: -30px;
+  font-size: 11rem;
+  opacity: 0.10;
+  transform: rotate(-12deg);
+}
+
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: 2.1rem;
+  font-weight: 800;
+}
+
+.hero p {
+  margin: 0;
+  font-size: 1.05rem;
+  opacity: 0.92;
+  max-width: 600px;
+}
+
+.hero .faixa-paises {
+  margin-top: 18px;
+  font-size: 1.4rem;
+  letter-spacing: 4px;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-bottom: 10px;
+}
+
+.card-entidade {
+  background: var(--branco);
+  border-radius: var(--raio);
+  padding: 20px;
+  box-shadow: var(--sombra);
+  border: 1px solid var(--cinza-medio);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-entidade:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-forte);
+}
+
+.card-entidade .icone {
+  font-size: 1.9rem;
+}
+
+.card-entidade h3 {
+  margin: 4px 0 0;
+  font-size: 1.05rem;
+  color: var(--azul-escuro);
+}
+
+.card-entidade p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #5a5f63;
+}
+
+/* ---------------- Cabeçalho de página ---------------- */
+
+.cabecalho-pagina {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.cabecalho-pagina h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: var(--azul-escuro);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ---------------- Busca ---------------- */
+
+.barra-busca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.barra-busca input {
+  flex: 1;
+  max-width: 360px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--cinza-medio);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background: var(--branco);
+}
+
+.barra-busca input:focus {
+  border-color: var(--verde-campo);
+  box-shadow: 0 0 0 3px rgba(10, 138, 60, 0.15);
+}
+
+/* ---------------- Botões ---------------- */
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+.botao:hover {
+  filter: brightness(1.08);
+}
+
+.botao:active {
+  transform: scale(0.97);
+}
+
+.botao-primario {
+  background: var(--verde-campo);
+  color: var(--branco);
+}
+
+.botao-secundario {
+  background: var(--azul-celeste);
+  color: var(--branco);
+}
+
+.botao-perigo {
+  background: var(--vermelho-erro);
+  color: var(--branco);
+}
+
+.botao-aviso {
+  background: var(--amarelo-ouro);
+  color: var(--grafite);
+}
+
+.botao-ghost {
+  background: transparent;
+  color: var(--azul-escuro);
+  border: 1.5px solid var(--azul-escuro);
+}
+
+.botao-sm {
+  padding: 6px 10px;
+  font-size: 0.78rem;
+}
+
+/* ---------------- Tabela ---------------- */
+
+.tabela-wrapper {
+  background: var(--branco);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  border: 1px solid var(--cinza-medio);
+}
+
+table.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+table.tabela thead {
+  background: linear-gradient(135deg, var(--azul-escuro), var(--azul-celeste));
+  color: var(--branco);
+}
+
+table.tabela th {
+  text-align: left;
+  padding: 13px 16px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+table.tabela td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--cinza-medio);
+}
+
+table.tabela tbody tr {
+  transition: background 0.12s ease;
+}
+
+table.tabela tbody tr:hover {
+  background: #f0f7f2;
+}
+
+table.tabela tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.coluna-acoes {
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.tabela-vazia {
+  padding: 40px 20px;
+  text-align: center;
+  color: #7a7f83;
+}
+
+/* ---------------- Formulário ---------------- */
+
+.formulario-card {
+  background: var(--branco);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  border: 1px solid var(--cinza-medio);
+  padding: 28px;
+  max-width: 620px;
+}
+
+.campo-formulario {
+  margin-bottom: 18px;
+}
+
+.campo-formulario label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--azul-escuro);
+  margin-bottom: 6px;
+}
+
+.campo-formulario input,
+.campo-formulario select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--cinza-medio);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background: var(--branco);
+  color: var(--grafite);
+}
+
+.campo-formulario input:focus,
+.campo-formulario select:focus {
+  border-color: var(--verde-campo);
+  box-shadow: 0 0 0 3px rgba(10, 138, 60, 0.15);
+}
+
+.campo-formulario input.com-erro,
+.campo-formulario select.com-erro {
+  border-color: var(--vermelho-erro);
+}
+
+.mensagem-erro-campo {
+  color: var(--vermelho-erro);
+  font-size: 0.78rem;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.acoes-formulario {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+/* ---------------- Spinner ---------------- */
+
+.spinner-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 50px 0;
+  color: var(--azul-escuro);
+  font-weight: 600;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 4px solid var(--cinza-medio);
+  border-top-color: var(--verde-campo);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------------- Alertas ---------------- */
+
+.alerta {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+  border-left: 5px solid transparent;
+}
+
+.alerta-erro {
+  background: #fdecee;
+  color: #8c2630;
+  border-left-color: var(--vermelho-erro);
+}
+
+.alerta-sucesso {
+  background: #e9f6ea;
+  color: #1e5e25;
+  border-left-color: var(--verde-sucesso);
+}
+
+.alerta-info {
+  background: #e8f1fb;
+  color: #114a87;
+  border-left-color: var(--azul-celeste);
+}
+
+/* ---------------- Rodapé ---------------- */
+
+.rodape {
+  text-align: center;
+  padding: 18px;
+  font-size: 0.82rem;
+  color: #777;
+  background: var(--branco);
+  border-top: 1px solid var(--cinza-medio);
+}
+
+/* ---------------- Utilitários ---------------- */
+
+.bandeira-emoji {
+  font-size: 1.1rem;
+  margin-right: 6px;
+}
+
+.tag-fase {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  background: var(--amarelo-claro);
+  color: var(--grafite);
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 30px 22px; }
+  .hero h1 { font-size: 1.6rem; }
+  .formulario-card { padding: 20px; }
+}
