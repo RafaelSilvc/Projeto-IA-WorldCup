@@ -22,21 +22,33 @@ export default function GenericForm({ config }) {
   const [erro, setErro] = useState('');
 
   useEffect(() => {
-    if (!emEdicao) return;
+    setErro('');
+    setValoresIniciais({});
+
+    if (!emEdicao) {
+      setCarregando(false);
+      return;
+    }
+
+    let cancelado = false;
 
     async function carregarItem() {
+      setCarregando(true);
       try {
         const dados = await servico.getById(id);
-        setValoresIniciais(dados);
+        if (!cancelado) setValoresIniciais(dados);
       } catch (e) {
-        setErro('Não foi possível carregar os dados do registro.');
+        if (!cancelado) setErro('Não foi possível carregar os dados do registro.');
       } finally {
-        setCarregando(false);
+        if (!cancelado) setCarregando(false);
       }
     }
+
     carregarItem();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, emEdicao]);
+    return () => {
+      cancelado = true;
+    };
+  }, [id, emEdicao, servico, rotaBase]);
 
   async function salvar(dados) {
     setSalvando(true);
@@ -67,6 +79,7 @@ export default function GenericForm({ config }) {
       <Alerta tipo="erro" mensagem={erro} onFechar={() => setErro('')} />
 
       <Formulario
+        key={emEdicao ? `${rotaBase}-${id}` : `${rotaBase}-novo`}
         campos={campos}
         valoresIniciais={valoresIniciais}
         onSalvar={salvar}
