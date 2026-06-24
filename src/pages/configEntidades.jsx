@@ -19,8 +19,8 @@ export const configPais = {
   campoBusca: 'nome',
   colunas: [
     { chave: 'nome', titulo: 'Nome' },
-    { chave: 'sigla', titulo: 'Sigla' },
-    { chave: 'confederacao', titulo: 'Confederação' },
+    { chave: 'sigla', titulo: 'Sigla', render: (item) => <span className="badge-sigla">{item.sigla}</span> },
+    { chave: 'confederacao', titulo: 'Confederação', render: (item) => <span className="badge-confed">{item.confederacao}</span> },
   ],
   campos: [
     { nome: 'nome', label: 'Nome do país', tipo: 'text', obrigatorio: true },
@@ -46,7 +46,7 @@ export const configEstadio = {
     { chave: 'nome', titulo: 'Nome' },
     { chave: 'cidade', titulo: 'Cidade' },
     { chave: 'paisSede', titulo: 'País sede' },
-    { chave: 'capacidade', titulo: 'Capacidade' },
+    { chave: 'capacidade', titulo: 'Capacidade', render: (item) => item.capacidade?.toLocaleString('pt-BR') },
   ],
   campos: [
     { nome: 'nome', label: 'Nome do estádio', tipo: 'text', obrigatorio: true },
@@ -108,7 +108,11 @@ export const configFinal = {
     {
       chave: 'placar',
       titulo: 'Placar',
-      render: (item) => `${item.golsCampeao} x ${item.golsVice}`,
+      render: (item) => (
+        <span className="badge-placar">
+          {item.golsCampeao ?? 0} × {item.golsVice ?? 0}
+        </span>
+      ),
     },
     { chave: 'estadio', titulo: 'Estádio' },
   ],

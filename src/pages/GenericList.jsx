@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Tabela from '../components/Tabela';
 import Spinner from '../components/Spinner';
 import Alerta from '../components/Alerta';
@@ -21,24 +21,27 @@ export default function GenericList({ config }) {
   const [sucesso, setSucesso] = useState('');
   const [termoBusca, setTermoBusca] = useState('');
   const navegar = useNavigate();
+  const localizacao = useLocation();
 
-  useEffect(() => {
-    carregarItens();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  async function carregarItens() {
+  const carregarItens = useCallback(async () => {
     setCarregando(true);
     setErro('');
     try {
       const dados = await servico.getAll();
-      setItens(dados);
+      setItens(Array.isArray(dados) ? dados : []);
     } catch (e) {
       setErro(`Não foi possível carregar os dados de "${titulo}". Verifique se o backend está rodando em localhost:8080.`);
+      setItens([]);
     } finally {
       setCarregando(false);
     }
-  }
+  }, [servico, titulo]);
+
+  // Recarrega ao trocar de entidade ou ao voltar da tela de edição/cadastro.
+  useEffect(() => {
+    setTermoBusca('');
+    carregarItens();
+  }, [rotaBase, localizacao.key, carregarItens]);
 
   async function excluirItem(item) {
     const confirmar = window.confirm(mensagemExcluir ? mensagemExcluir(item) : 'Tem certeza que deseja excluir este registro?');

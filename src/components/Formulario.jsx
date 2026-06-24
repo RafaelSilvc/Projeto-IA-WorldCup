@@ -10,18 +10,22 @@ import BotaoAcao from './BotaoAcao';
  * @param {Function} onCancelar - callback chamado ao clicar em "Cancelar"
  * @param {boolean} salvando - desabilita o botão enquanto a requisição está em andamento
  */
+function montarValoresIniciais(campos, valoresIniciais) {
+  const inicial = {};
+  campos.forEach((campo) => {
+    const valor = valoresIniciais[campo.nome];
+    inicial[campo.nome] = valor === null || valor === undefined ? '' : valor;
+  });
+  return inicial;
+}
+
 export default function Formulario({ campos, valoresIniciais = {}, onSalvar, onCancelar, salvando = false }) {
-  const [valores, setValores] = useState({});
+  const [valores, setValores] = useState(() => montarValoresIniciais(campos, valoresIniciais));
   const [erros, setErros] = useState({});
 
-  // Sempre que os valores iniciais mudarem (ex: ao carregar dados para edição),
-  // atualizamos o estado interno do formulário.
   useEffect(() => {
-    const inicial = {};
-    campos.forEach((campo) => {
-      inicial[campo.nome] = valoresIniciais[campo.nome] ?? '';
-    });
-    setValores(inicial);
+    setValores(montarValoresIniciais(campos, valoresIniciais));
+    setErros({});
   }, [valoresIniciais, campos]);
 
   function lidarComMudanca(nome, valor) {

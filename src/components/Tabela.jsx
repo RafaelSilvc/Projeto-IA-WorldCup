@@ -9,11 +9,25 @@ import BotaoAcao from './BotaoAcao';
  * @param {Function} onExcluir - callback chamado com o item ao clicar em "Excluir"
  * @param {string} mensagemVazia - texto exibido quando não há dados
  */
+function renderizarCelula(item, coluna) {
+  if (coluna.render) return coluna.render(item);
+
+  const valor = item[coluna.chave];
+  if (valor === null || valor === undefined || valor === '') {
+    return <span className="celula-vazia">—</span>;
+  }
+
+  return valor;
+}
+
 export default function Tabela({ colunas, dados, onEditar, onExcluir, mensagemVazia = 'Nenhum registro encontrado.' }) {
   if (!dados || dados.length === 0) {
     return (
       <div className="tabela-wrapper">
-        <div className="tabela-vazia">{mensagemVazia}</div>
+        <div className="tabela-vazia">
+          <span className="tabela-vazia-icone">⚽</span>
+          <p>{mensagemVazia}</p>
+        </div>
       </div>
     );
   }
@@ -30,11 +44,11 @@ export default function Tabela({ colunas, dados, onEditar, onExcluir, mensagemVa
           </tr>
         </thead>
         <tbody>
-          {dados.map((item) => (
-            <tr key={item.id}>
+          {dados.map((item, indice) => (
+            <tr key={item.id ?? indice}>
               {colunas.map((coluna) => (
                 <td key={coluna.chave}>
-                  {coluna.render ? coluna.render(item) : item[coluna.chave]}
+                  {renderizarCelula(item, coluna)}
                 </td>
               ))}
               {(onEditar || onExcluir) && (
